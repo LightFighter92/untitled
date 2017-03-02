@@ -1,0 +1,58 @@
+<!-- Lese die Datensätze aus der Inventardatenbank und zeige die Objekte als Tabelle an !-->
+<table class="table">
+  <tr>
+    <th>Artikel <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('artikel')"></span></th>
+    <th>Anzahl <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('anzahl')"></span></th>
+    <th class="hidden-xs">Wert <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('wert')"></span></th>
+    <th class="hidden-xs">Total</th>
+    <th>Sponsor <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('sponsor')"></span></th>
+    <td></td>
+  </tr>
+  <tr *ngFor="let artikel of inventar|async">
+    <td>{{artikel.artikel}}</td>
+    <td>{{artikel.anzahl}}</td>
+    <td class="hidden-xs">{{artikel.wert}}</td>
+    <td class="hidden-xs">{{artikel.anzahl * artikel.wert}}</td>
+    <td>{{artikel.sponsor}}</td>
+    <td>
+      <span class="glyphicon glyphicon-pencil" (click)="setItem(artikel)"></span>
+      <span class="glyphicon glyphicon-trash" (click)="onRemoveFromInventar(artikel.$key)"></span>
+    </td>
+  </tr>
+  <tr>
+    <th>Gesamtwert Artikel</th>
+    <td colspan="5">{{gesamtWert}}</td>
+  </tr>
+</table>
+
+<!-- Wenn ein Artikel aus der Liste gewählt wurde, öffne das Formular um diesen zu bearbeiten!-->
+<section class="row" *ngIf="itemSelected===true">
+  <h3>Artikel bearbeiten</h3>
+  <div class="form-group col-md-3">
+    <label for="artikel">Artikel</label>
+    <input [(ngModel)]="editItem.artikel" id="artikel" class="form-control">
+  </div>
+  <div class="form-group col-md-3">
+    <label for="anzahl">Anzahl</label>
+    <input [(ngModel)]="editItem.anzahl" id="anzahl" class="form-control">
+  </div>
+  <div class="form-group col-md-3">
+    <label for="wert">Wert</label>
+    <input [(ngModel)]="editItem.wert" id="wert" class="form-control">
+  </div>
+  <div class="form-group col-md-3">
+    <label for="sponsor">Sponsor</label>
+    <select [(ngModel)]="editItem.sponsor" id="sponsor" class="form-control">
+      <option *ngFor="let item of sponsoren|async">{{item.name}}</option>
+    </select>
+  </div>
+  <button class="btn btn-primary btn-block" (click)="onUpdate(editItem)">Update</button>
+  <button class="btn btn-success btn-block" (click)="resetItem()">Clear</button>
+</section>
+
+<!-- Wenn kein Artikel ausgewählt ist, zeige das Formular, um einen neuen Artikel zu erfassen !-->
+<section *ngIf="itemSelected===false">
+  <h3>Neuer Artikel</h3>
+  <app-inventar-form></app-inventar-form>
+</section>
+

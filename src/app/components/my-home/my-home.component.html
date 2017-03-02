@@ -1,0 +1,29 @@
+<h2 class="row">Tombolaveranwaltung des STV Basadingen</h2>
+<div *ngIf="auth.authenticated() && auth.userProfile">
+  <div class="row">
+      <h3>Profil</h3>
+      <div class="col-md-2">
+        <img [src]="auth.userProfile.picture" alt="" class="profile-img img-circle">
+      </div>
+      <div class="col-md-10">
+        <tr>
+          <th>Email: </th>
+          <td><a href="mailto:{{auth.userProfile.email}}">{{auth.userProfile.email}}</a></td>
+        </tr>
+        <tr>
+          <th>Erstellt am:</th>
+          <td> {{auth.userProfile.created_at | date:'medium'}}</td>
+        </tr>
+        <tr>
+          <th>Zuletzt angemeldet am: </th>
+          <td>{{auth.userProfile.updated_at | date:'medium'}}</td>
+        </tr>
+      </div>
+  </div>
+  <h3>Aufgaben</h3>
+  <p>Ihnen sind zur Zeit keine Aufgaben zugeteilt</p>
+  <h3>Abholen</h3>
+  <p>Keine Abholung für Sie Offen</p>
+</div>
+<h4 *ngIf="!auth.authenticated()">Sie sind nicht eingeloggt, bitte klicken Sie auf den Login-Button um sich einzuloggen. Es kann sein, dass wenn zum ersten Mal die Seite besuchen,
+  dass Sie sie manuell aktualisieren müssen, bevor Sie mit dem Loginvorgang beginnen können. Es wird an ein Lösung für dieses Problem gearbeitet.</h4>

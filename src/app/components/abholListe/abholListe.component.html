@@ -1,0 +1,73 @@
+<section class="row">
+  <article class="col-xs-12">
+    <!-- Abliste als Tabelle anzeigen !-->
+    <table class="table table-responsive">
+      <tr>
+        <th>Sponsor <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('name')"></span></th>
+        <th class="hidden-xs">Adresse <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('strasse')"></span></th>
+        <th class="hidden-xs">PLZ <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('plz')"></span></th>
+        <th class="hidden-xs">Ort <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('ort')"></span></th>
+        <th class="visible-xs">Standort</th>
+        <th class="hidden-xs">Regional <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('regio')"></span></th>
+        <th>Verantwortlich <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('verantwortlich')"></span></th><th></th><th></th>
+      </tr>
+      <tr *ngFor="let item of abholListe|async">
+        <td>{{item.name}}</td>
+        <td class="hidden-xs">{{item.strasse}}</td>
+        <td class="hidden-xs">{{item.plz}}</td>
+        <td class="hidden-xs">{{item.ort}}</td>
+        <td class="visible-xs"><a target="_blank" href="https://www.google.ch/maps/place/{{item.strasse}}+{{item.plz}}+{{item.ort}}"><span class="glyphicon glyphicon-map-marker"></span></a></td>
+        <td class="hidden-xs"><span *ngIf="item.regio === 'Ja'" class="glyphicon glyphicon-ok"></span><span *ngIf="item.regio==='Nein'" class="glyphicon glyphicon-remove"></span></td>
+        <td>{{item.verantwortlich}}</td>
+        <td>
+         <span class="glyphicon glyphicon-info-sign" (click)="alert(item.bemerkung)"></span>
+        </td>
+        <td>
+          <span class="glyphicon glyphicon-pencil" (click)="setItem(item)"></span>
+          <span class="glyphicon glyphicon-trash" (click)="onRemoveFromAbholliste(item.$key)"></span>
+        </td>
+      </tr>
+    </table>
+  </article>
+</section>
+<section *ngIf="itemSelected===true">
+  <h3>Eintrag bearbeiten</h3>
+  <div class="row">
+    <div class="col-md-3">
+      <label>Sponsor</label>
+      <input class="form-control" type="text" [(ngModel)]="editItem.name">
+    </div>
+    <div class="col-md-3">
+      <label>Adresse</label>
+      <input class="form-control" type="text" [(ngModel)]="editItem.strasse">
+    </div>
+    <div class="col-md-1">
+      <label>PLZ</label>
+      <input class="form-control" type="text" [(ngModel)]="editItem.plz">
+    </div>
+    <div class="col-md-2">
+      <label>Ort</label>
+      <input class="form-control" type="text" [(ngModel)]="editItem.ort">
+    </div>
+    <div class="col-md-1">
+      <label>Regio</label>
+      <select class="form-control" [(ngModel)]="editItem.regio">
+        <option>Ja</option>
+        <option>Nein</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label>Verantwortlich</label>
+      <input class="form-control" type="text" [(ngModel)]="editItem.verantwortlich">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <label>Bemerkung</label>
+      <textarea class="form-control" [(ngModel)]="editItem.bemerkung"></textarea>
+    </div>
+  </div>
+  <br/>
+  <button class="btn btn-primary btn-block" (click)="onUpdate(editItem)">Update</button>
+  <button class="btn btn-success btn-block" (click)="resetItem()">Clear</button>
+</section>

@@ -1,0 +1,20 @@
+<form [formGroup]="budgetForm" (ngSubmit)="sendToBudget($event)">
+  <div class="row form-group">
+    <div class="col-md-4">
+      <label>Zweck</label>
+      <input type="text" formControlName="zweck" class="form-control" placeholder="Zweck des Eintrags">
+    </div>
+    <div class="col-md-4">
+      <label>Betrag</label>
+      <input type="number" formControlName="betrag" class="form-control">
+    </div>
+    <div class="col-md-4">
+      <label>Einnahme / Ausgabe</label>
+      <select formControlName="ausgabe" class="form-control">
+        <option>Einnahme</option>
+        <option>Ausgabe</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Senden</button>
+</form>

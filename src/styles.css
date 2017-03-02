@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+body, html{
+  padding-top: 20px;
+}
+
+footer{
+  margin-top: 20px;
+  text-align: right;
+}
+
+.glyphicon-info-sign:hover{
+  color:dodgerblue;
+}
+
+.glyphicon-trash:hover{
+  color: red;
+}
+
+.glyphicon-pencil:hover{
+  color:green;
+}
+
+.glyphicon-triangle-right:hover{
+  color: dodgerblue;
+}

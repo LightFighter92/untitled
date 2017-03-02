@@ -1,0 +1,93 @@
+<section class="row">
+  <article class="col-xs-12">
+    <form id="filter">
+      <input type="text" class="form-control" [(ngModel)]="filterSponsor"  [ngModelOptions]="{standalone: true}" placeholder="Nach Sponsor suchen">
+    </form>
+    <!-- Tabelle der Sponsoren aus der Datenbank !-->
+    <table class="table">
+      <tr>
+        <th>Sponsor <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('name')"></span></th>
+        <th class="hidden-xs">Adresse <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('strasse')"></span></th>
+        <th class="hidden-xs">PLZ <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('plz')"></span></th>
+        <th class="hidden-xs">Ort <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('ort')"></span></th>
+        <th class="visible-xs">Standort</th>
+        <th class="hidden-xs">Regional <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('regio')"></span></th>
+        <th class="hidden-xs">Status <span class="glyphicon glyphicon-chevron-down text-right" (click)="onSort('status')"></span></th><th></th><th></th>
+      </tr>
+      <tr *ngFor="let item of sponsoren|async|filter:filterSponsor" >
+        <td>{{item.name}}</td>
+        <td class="hidden-xs">{{item.strasse}}</td>
+        <td class="hidden-xs">{{item.plz}}</td>
+        <td class="hidden-xs">{{item.ort}}</td>
+        <td class="visible-xs"><a target="_blank" href="https://www.google.ch/maps/place/{{item.strasse}}+{{item.plz}}+{{item.ort}}"><span class="glyphicon glyphicon-map-marker"></span></a></td>
+        <td class="hidden-xs"><span *ngIf="item.regio === 'Ja'" class="glyphicon glyphicon-ok"></span><span *ngIf="item.regio==='Nein'" class="glyphicon glyphicon-remove"></span></td>
+        <td class="hidden-xs">{{item.status}}</td>
+        <td>
+          <span class="glyphicon glyphicon-info-sign" (click)="showSponsorInfo(item)"></span>
+        </td>
+        <td>
+          <span class="glyphicon glyphicon-pencil" (click)="setItem(item)"></span>
+          <span class="glyphicon glyphicon-trash" (click)="onRemoveFromSponsorListe(item.$key)"></span>
+          <span class="glyphicon glyphicon-triangle-right" (click)="onAddToSponsorenListe(item)"></span>
+        </td>
+      </tr>
+      <tr>
+        <th>Anzahl Sponsoren</th>
+        <td colspan="6">{{(sponsoren|async)?.length}}</td>
+      </tr>
+    </table>
+  </article>
+</section>
+
+<!-- Wenn ein Sponsor aus der Liste ausgewählt wurde !-->
+<section class="row" *ngIf="itemSelected===true">
+  <h3>Sponsor bearbeiten</h3>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="sponsor">Sponsor</label>
+        <input class="form-control" placeholder="sponsor" type="text" id="sponsor" name="sponsor" [(ngModel)]="editItem.name">
+      </div>
+      <div class="form-group col-md-6">
+        <label>Adresse</label>
+        <input type="text" class="form-control col-md-6" [(ngModel)]="editItem.strasse">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label>PLZ</label>
+        <input type="number" class="form-control" placeholder="PLZ" [(ngModel)]="editItem.plz">
+      </div>
+      <div class="form-group col-md-6">
+        <label>Ort</label>
+        <input class="form-control col-md-6" [(ngModel)]="editItem.ort">
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label>Regional</label>
+        <select class="form-control col-md-6" [(ngModel)]="editItem.regio">
+          <option>Ja</option>
+          <option>Nein</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label>Status</label>
+        <select class="form-control col-md-6" [(ngModel)]="editItem.status">
+          <option>Erfasst</option>
+          <option>Angefragt</option>
+          <option>Zugesagt</option>
+          <option>Abgesagt</option>
+          <option>Abgeholt</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary btn-block" (click)="onUpdateSponsor(editItem)">Update</button>
+    <button class="btn btn-success btn-block" (click)="resetItem()">Clear Form</button>
+</section>
+
+<!-- Wenn kein Sponsor gewählt ist !-->
+<section *ngIf="itemSelected===false">
+  <h3>Neuer Sponsor</h3>
+  <app-sponsor-form></app-sponsor-form>
+</section>
+

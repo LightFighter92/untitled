@@ -1,0 +1,58 @@
+<table class="table">
+  <tr>
+    <th>Zweck</th><th>Einnahme</th><th>Ausgabe</th><th></th>
+  </tr>
+  <tr *ngFor="let item of budget|async">
+    <td>{{item.zweck}}</td>
+    <td><p *ngIf="item.ausgabe==='Einnahme'">{{item.betrag}}</p></td>
+    <td><p *ngIf="item.ausgabe==='Ausgabe'">{{item.betrag}}</p></td>
+    <td>
+      <span class="glyphicon glyphicon-pencil" (click)="setItem(item)"></span>
+     <span class="glyphicon glyphicon-trash" (click)="onRemoveItem(item)"></span>
+    </td>
+  </tr>
+  <tr>
+    <th>Totale Einahmen</th><td colspan="3">{{einnahmen}}</td>
+  </tr>
+  <tr>
+    <th>Totale Ausgaben</th><td></td><td colspan="2">{{ausgaben}}</td>
+  </tr>
+  <tr>
+    <th>Gewinn</th><td colspan="3">{{einnahmen - ausgaben}}</td>
+  </tr>
+  <tr>
+    <th>Budget ausgesch&ouml;pft</th>
+    <td colspan="3">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" [style.width]="prozentBudget+'%'" [class.progress-bar-success]="prozentBudget<=60" [class.progress-bar-warning]="prozentBudget>60" [class.progress-bar-danger]="prozentBudget>90">
+          {{prozentBudget}} %
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+<div class="row" *ngIf="itemSelected===true">
+  <h3>Eintrag bearbeiten</h3>
+  <div class="col-md-5 form-group">
+    <label>Zweck</label>
+    <input type="text" class="form-control" [(ngModel)]="editItem.zweck">
+  </div>
+  <div class="col-md-5 form-group">
+    <label>Betrag</label>
+    <input type="number" class="form-control" [(ngModel)]="editItem.betrag">
+  </div>
+  <div class="col-md-2">
+    <label>&nbsp;</label>
+    <select class="form-control">
+      <option>Eingabe</option>
+      <option>Ausgabe</option>
+    </select>
+  </div>
+  <button type="button" class="btn btn-primary btn-block" (click)="onUpdate(editItem)">Update</button>
+  <button type="button" class="btn btn-success btn-block" (click)="resetItem()">Clear</button>
+</div>
+<div *ngIf="itemSelected===false">
+  <h3>Neuen Eintrag erfassen</h3>
+  <app-budget-form></app-budget-form>
+</div>
+

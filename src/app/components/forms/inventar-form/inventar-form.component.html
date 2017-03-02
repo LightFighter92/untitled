@@ -1,0 +1,23 @@
+<form [formGroup]="inventarForm" (ngSubmit)="sendToInventar($event)">
+  <div class="row form-group">
+    <div class="col-md-4">
+      <label>Artikel</label>
+      <input type="text" formControlName="artikel" class="form-control" placeholder="Artikel" >
+    </div>
+    <div class="col-md-2">
+      <label>Anzahl</label>
+      <input type="number" formControlName="anzahl" class="form-control" placeholder="Artikelanzahl">
+    </div>
+    <div class="col-md-2">
+      <label>Wert</label>
+      <input type="number" formControlName="wert" class="form-control" placeholder="Artikelwert">
+    </div>
+    <div class="col-md-4">
+      <label>Sponsor</label>
+      <select formControlName="sponsor" class="form-control">
+        <option *ngFor="let item of sponsoren|async">{{item.name}}</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Hinzufügen</button>
+</form>

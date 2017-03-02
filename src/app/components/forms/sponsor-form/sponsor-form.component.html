@@ -1,0 +1,48 @@
+<form [formGroup]="sponsorForm" (ngSubmit)="sendToSponsorListe($event)">
+  <div class="row form-group">
+    <div class="col-md-12">
+      <input formControlName="name" type="text" class="form-control" placeholder="Sponsor" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-4">
+      <input formControlName="strasse" type="text" class="form-control" placeholder="Strasse / Nr." required>
+    </div>
+    <div class="col-md-4">
+      <input formControlName="plz" type="number" class="form-control" placeholder="PLZ" required>
+    </div>
+    <div class="col-md-4">
+      <input formControlName="ort" type="text" class="form-control" placeholder="Ort" required>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-6">
+      <label>Regional</label>
+      <select formControlName="regio" class="form-control" required>
+        <option>Ja</option>
+        <option>Nein</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Status</label>
+      <select formControlName="status" class="form-control" required>
+        <option>Erfasst</option>
+        <option>Angefragt</option>
+        <option>Zugesagt</option>
+        <option>Abgesagt</option>
+        <option>Abgeholt</option>
+      </select>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-6">
+      <label>Verantwortlich</label>
+      <input formControlName="verantwortlich" type="text" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label>Bemerkungen(optional)</label>
+      <textarea formControlName="bemerkungen" class="form-control" cols="20" rows="5"></textarea>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary btn-block">Senden</button>
+</form>
