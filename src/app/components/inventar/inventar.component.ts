@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {InventarService} from "../../services/inventar.service";
-import {Artikel} from "../../models/artikel.model";
 import {SponsorService} from "../../services/sponsorListe.service";
-import {Sponsor} from "../../models/sponsor.model";
 import {FirebaseListObservable} from "angularfire2";
 
 
@@ -20,26 +18,40 @@ export class InventarComponent implements OnInit {
 
   constructor(private inventarService:InventarService,private sponsorService:SponsorService) { }
 
-  //entfernt einen Bestimmten Artikel aus dem Inventar
+  /*
+   entfernt einen Bestimmten Artikel aus dem Inventar
+   @key: ID des Datensatzes, welcher gelöscht werden soll
+   */
   onRemoveFromInventar(key){
     this.inventarService.removeFromInventar(key);
   }
 
+  /*
+   Synchroniert die Daten eines Datensatzes mit der Datenbank
+   @item: zu synchronisierender Datensatz
+   */
   onUpdate(item){
     this.inventarService.updateArtikel(item);
   }
 
-  //Wählt den Artikel aus, welcher bearbeitet werden soll
+  /*
+   Wählt den Artikel aus, welcher bearbeitet werden soll
+   @item: Datensatz, welcher bearbeitet werden soll
+   */
   setItem(item){
     this.editItem = item;
     this.itemSelected = true;
   }
 
-  //Das Zurücksetzen des Formlars ermöglicht es
+  //Das Zurücksetzen des Formlars ermöglicht es neue Objekte in die Datenbank aufzunehmen
   resetItem(){
     this.itemSelected=false;
   }
 
+  /*
+   Sortiert die Datensätze nach einem bestimmten Attribut
+   @sortBy: Attributt nach dem sortiert werden soll
+   */
   onSort(sortBy:string){
     this.inventar = this.inventarService.sortInventar(sortBy);
   }

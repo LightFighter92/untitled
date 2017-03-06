@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {BudgetService} from '../../services/budget.service';
-import {BudgetItem} from "../../models/budget.model";
+import {Component, OnInit} from "@angular/core";
+import {BudgetService} from "../../services/budget.service";
 import {FirebaseListObservable} from "angularfire2";
 
 @Component({
@@ -10,8 +9,8 @@ import {FirebaseListObservable} from "angularfire2";
 })
 export class BudgetComponent implements OnInit {
 
-  budget:FirebaseListObservable<any>;
-  public prozentBudget:number = 0;
+  budget: FirebaseListObservable<any>; // Speichert die Datensätze aus der Firebasedatenbank
+  public prozentBudget: number = 0;// Definiert, wie viel des gegebenen Budget bereits ausgegeben wurden (in Prozent)
   public einnahmen:number = 0;
   public ausgaben:number = 0;
   public editItem = {};
@@ -19,20 +18,32 @@ export class BudgetComponent implements OnInit {
 
   constructor(private budgetService:BudgetService) { }
 
+  /*
+   Nimmt einen ausgewählten Datensatz und setzt die Attribute in das Formular
+   @item: ausgewählter Datensatz aus der Tabelle
+   */
   setItem(item){
     this.editItem = item;
     this.itemSelected = true;
   }
 
+//Setzt das Forumlar zurück
   resetItem(){
     this.itemSelected = false;
   }
 
+  /*
+   Ruft einen Service auf welcher, ein bestimmtes Item aktualsiert
+   @item: Datensatz, welcher aktualsiert werden soll
+   */
   onUpdate(item){
     this.budgetService.updateBudgetItem(item);
   }
 
-  //Ruft einen Service auf, welcher das Objekt, welches als Parameter übertragen wurde, aus der Budgetliste entfernt
+  /*
+   Ruft einen Service auf, welcher ein Objekt aus der Budgetliste entfernt
+   @key: ID eines Items, welches gelöscht werden soll
+   */
   onRemoveItem(key){
     this.budgetService.removeFromInventar(key);
   }

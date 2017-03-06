@@ -3,7 +3,7 @@
  */
 import {BudgetItem} from "../models/budget.model";
 import {Injectable} from "@angular/core";
-import {FirebaseListObservable, AngularFire, FirebaseObjectObservable} from "angularfire2";
+import {FirebaseListObservable, AngularFire} from "angularfire2";
 
 @Injectable()
 export class BudgetService{
@@ -20,26 +20,35 @@ export class BudgetService{
     this.einnahmen = this.getEinnahmen();
   }
 
-  //Nimmt ein BugetItem als Parameter und fügt dieses der Datenbank als neuen Datensatz bei
+  /*
+   Nimmt ein BugetItem als Parameter und fügt dieses der Datenbank als neuen Datensatz bei
+   @item: Objekt, dass der Datenbank hinzugefügt werden soll
+   */
   addToBuget(item:BudgetItem){
     this.budget.push({zweck:item.zweck,betrag:item.betrag,ausgabe:item.ausgabe});
   }
 
-  //Nimmt den Key eines Objekts und löscht das jewelige Objekt aus der Datenbank
+  /*
+   Nimmt den Key eines Objekts und löscht das jewelige Objekt aus der Datenbank
+   @key: ID des zu löschenden Objekts
+   */
   removeFromInventar(key:string){
     this.budget.remove(key);
   }
 
-  //Synchronisiert ein bestehendes Objekt mit der Datenbank
+  /*
+   Synchronisiert ein bestehendes Objekt mit der Datenbank
+   @item: Datensatz der aktualsiert werden soll
+   */
   updateBudgetItem(item){
-    this.budgetItemToUpdate = this.af.database.object("Budget/" + item.$key)
+    this.budgetItemToUpdate = this.af.database.object("Budget/" + item.$key);
     this.budgetItemToUpdate.update({zweck:item.zweck,betrag:item.betrag,ausgabe:item.ausgabe});
   }
 
   //berechnet die totalen Einnahmen. Als Anfangswert wird 2500(Budget) gesetzt.
   getEinnahmen(){
 
-    this.einnahmen = 0
+    this.einnahmen = 0;
 
    this.af.database.list("/Budget",{query:{
      orderByChild:'ausgabe',
@@ -65,11 +74,6 @@ export class BudgetService{
       .subscribe(total => {console.log(total);this.ausgaben = total;});
 
     return this.ausgaben;
-  }
-
-  //berechnet die Differenz zwischen Einnahmen und Ausgaben und gibt diese zurück
-  getBalace(){
-    return this.getEinnahmen() - this.getAusgaben();
   }
 
   //Gibt die Datensätze des Budgets zurück

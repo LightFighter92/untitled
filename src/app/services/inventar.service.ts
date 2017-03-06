@@ -24,28 +24,42 @@ export class InventarService{
     return this.inventar;
   }
 
-  //Fügt ein Objekt als neuen Datensatz der Inventardatenbank hinzu
+  /*
+   Fügt ein Objekt als neuen Datensatz der Inventardatenbank hinzu
+   @item: Artikel, welcher der Datenbank hinzugefügt werden soll
+   */
   addToInventar(item:Artikel){
     this.inventar.push({artikel:item.artikel,anzahl:item.anzahl,wert:item.wert,sponsor:item.sponsor});
   }
-  //Sychronisiert ein bestehendes Objekt mit der Datenbank
+
+  /*
+   Sychronisiert ein bestehendes Objekt mit der Datenbank
+   @item: Datensatz, welcher aktualisiert werden soll
+   */
   updateArtikel(item){
     this.artikelToUpdate = this.af.database.object("Inventar/" + item.$key);
 
     this.artikelToUpdate.update({anzahl:item.anzahl,artikel:item.artikel,sponsor:item.sponsor,wert:item.wert});
   }
 
-  //Entfernt ein Objekt mit einem bestimmten Key(Parameter) von der Inventardatenbank
-  removeFromInventar(key){
+  /*
+   Entfernt ein Objekt von der Inventardatenbank
+   @key: ID des zu löschenden Datensatzes
+   */
+  removeFromInventar(key: string) {
    this.inventar.remove(key);
   }
 
+  /*
+   Sortiert das Inventar nach einem bestimmten Attributt
+   @sortBy: Attributt nach dem sortiert werde soll
+   */
   sortInventar(sortBy:string){
     this.inventar = this.af.database.list("/Inventar",{
       query:{
         orderByChild:sortBy
       }
-    })
+    });
 
     return this.inventar;
   }
@@ -53,7 +67,7 @@ export class InventarService{
   //Berechnet den Gesamtwert aller Artikel
   calcGesamtwertArtikel(){
 
-    let total:number = 0
+    let total: number = 0;
 
     this.af.database.list("/Inventar").map(items => items.reduce((acc, item) => acc + item.wert*item.anzahl, 0))
     // Log the total
