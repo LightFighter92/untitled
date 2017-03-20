@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import {Auth} from "./services/auth.service";
-import {database,initializeApp} from 'firebase';
-import {AngularFire, FirebaseListObservable} from "angularfire2";
-import {HeaderComponent} from "./header.component";
+import {Component} from "@angular/core";
+import {database, initializeApp} from "firebase";
+import {AngularFire} from "angularfire2";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +8,7 @@ import {HeaderComponent} from "./header.component";
 })
 export class AppComponent {
 
-  constructor(private auth:Auth,private af:AngularFire){
+  constructor(private af: AngularFire) {
 
   }
 }

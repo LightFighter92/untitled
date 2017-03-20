@@ -1,0 +1,18 @@
+<a [routerLink]="'../home'">zurück</a>
+<h2>Registrieren</h2>
+
+<form (submit)="submitUser()" [formGroup]="userForm">
+  <div class="form-group">
+    <label>Name:</label>
+    <input type="text" class="form-control" name="username" formControlName="username" required>
+  </div>
+  <div class="form-group">
+    <label>E-Mail:</label>
+    <input type="email" class="form-control" name="email" formControlName="email" required>
+  </div>
+  <div class="form-group">
+    <label>Passwort:</label>
+    <input type="password" class="form-control" formControlName="password" required>
+  </div>
+  <button class="btn btn-primary btn-block">Registrieren</button>
+</form>

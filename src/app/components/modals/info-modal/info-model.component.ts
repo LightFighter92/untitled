@@ -1,5 +1,6 @@
-import { Component} from '@angular/core';
-import {DialogComponent, DialogService} from "ng2-bootstrap-modal";
+import {Component} from "@angular/core";
+import {FirebaseListObservable} from "angularfire2";
+import {SponsorService} from "../../../services/sponsorListe.service";
 
 @Component({
   selector: 'app-info-model',
@@ -7,17 +8,16 @@ import {DialogComponent, DialogService} from "ng2-bootstrap-modal";
   styles: []
 })
 
-export class InfoModelComponent extends DialogComponent {
+export class InfoModelComponent {
 
-  constructor(dialogService: DialogService) {
-    super(dialogService);
+  private sponsoren: FirebaseListObservable<any>;
+
+  constructor(private sponsorenService: SponsorService) {
   }
 
-  confirm() {
-    // we set dialog result as true on click on confirm button,
-    // then we can get dialog result from caller code
-    this.result = true;
-    this.close();
+
+  ngOnInit() {
+    this.sponsoren = this.sponsorenService.getSponsorListe();
   }
 
 

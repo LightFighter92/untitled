@@ -52,12 +52,15 @@ export class BudgetService{
 
    this.af.database.list("/Budget",{query:{
      orderByChild:'ausgabe',
-     equalTo:'Einnahme'
+     equalTo: 'Einnahme'
    }}).map(items => items.reduce((acc, item) => acc + item.betrag, 0))
    // Log the total
-     .subscribe(total => {console.log(total);this.einnahmen = total;});
+     .subscribe(total => {
+       console.log(total);
+       this.einnahmen = total + 2500;
+     });
 
-   return this.einnahmen+2500;
+    return this.einnahmen;
 
   }
 
@@ -68,7 +71,7 @@ export class BudgetService{
 
     this.af.database.list("/Budget",{query:{
       orderByChild:'ausgabe',
-      equalTo:'Ausgabe'
+      equalTo: 'Ausgabe'
     }}).map(items => items.reduce((acc, item) => acc + item.betrag, 0))
     // Log the total
       .subscribe(total => {console.log(total);this.ausgaben = total;});

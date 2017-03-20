@@ -1,15 +1,41 @@
 <section class="row">
-  <header class="col-xs-12">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#page-main-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <header class="col-xs-12 navbar-collapse" id="page-main-nav">
       <ul class="nav nav-pills">
-        <li routerLinkActive="active" *ngIf="!auth.authenticated()"><a (click)="auth.login()">Login</a></li>
-        <li routerLinkActive="active" *ngIf="auth.authenticated()"><a (click)="auth.logout()" [routerLink]="'/logout'">Logout</a></li>
+        <input type="hidden" id="selected_menu_item" value="=$selectedMenuId; ?>"/>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a (click)="logout()" [routerLink]="'/logout'">Logout</a>
+        </li>
         <li routerLinkActive="active"><a [routerLink]="'/home'">Home</a></li>
-        <li routerLinkActive="active" *ngIf="auth.authenticated()"><a [routerLink]="'/sponsorliste'">Sponsoren</a></li>
-        <li routerLinkActive="active" *ngIf="auth.authenticated()"><a [routerLink]="'/inventar'">Inventar</a></li>
-        <li routerLinkActive="active" *ngIf="auth.authenticated()"><a [routerLink]="['/abholen']">Abholliste</a></li>
-        <li routerLinkActive="active" *ngIf="auth.authenticated()"><a [routerLink]="['/docs']">Dokumente</a></li>
-        <li routerLinkActive="active" *ngIf="auth.authenticated()"><a [routerLink]="['/budget']">Budget</a></li>
+        <li routerLinkActive="active" *ngIf="!(af.auth|async)"><a [routerLink]="'/register'">Registrieren</a></li>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a [routerLink]="'/sponsorliste'">Sponsoren</a></li>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a [routerLink]="'/inventar'">Inventar</a></li>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a [routerLink]="['/abholen']">Abholliste</a></li>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a [routerLink]="['/docs']">Dokumente</a></li>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a [routerLink]="['/budget']">Budget</a></li>
+        <li routerLinkActive="active" *ngIf="(af.auth|async)"><a [routerLink]="['/tasks']">Aufgaben</a></li>
+        <li></li>
       </ul>
   </header>
+    </div>
+  </nav>
 </section>
+<script>
+  $('#page-main-nav').on('show.bs.collapse', function () {
+    $('.nav-pills').addClass('nav-stacked');
+  });
+
+  //Unstack menu when not collapsed
+  $('#page-main-nav').on('hide.bs.collapse', function () {
+    $('.nav-pills').removeClass('nav-stacked');
+  });
+</script>
 

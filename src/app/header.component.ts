@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Auth} from "./services/auth.service";
+import {Component, OnInit} from "@angular/core";
+import {AngularFire} from "angularfire2";
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,16 @@ import {Auth} from "./services/auth.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private auth: Auth) { }
+  constructor(private af: AngularFire) {
+  }
+
+  login() {
+    this.af.auth.login();
+  }
+
+  logout() {
+    this.af.auth.logout();
+  }
 
   ngOnInit() {
   }

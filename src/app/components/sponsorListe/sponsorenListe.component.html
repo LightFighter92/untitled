@@ -23,7 +23,8 @@
         <td class="hidden-xs"><span *ngIf="item.regio === 'Ja'" class="glyphicon glyphicon-ok"></span><span *ngIf="item.regio==='Nein'" class="glyphicon glyphicon-remove"></span></td>
         <td class="hidden-xs">{{item.status}}</td>
         <td>
-          <span class="glyphicon glyphicon-info-sign" (click)="showSponsorInfo(item)"></span>
+          <span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-placement="bottom"
+                title="{{item.bemerkung}}"></span>
         </td>
         <td>
           <span class="glyphicon glyphicon-pencil" (click)="setItem(item)"></span>
