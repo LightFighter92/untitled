@@ -9,6 +9,7 @@ import {FirebaseListObservable, AngularFire} from "angularfire2";
 export class SponsorService{
   private sponsoren$: FirebaseListObservable<any>;
   private abholen$: FirebaseListObservable<any>;
+  private task$: FirebaseListObservable<any>;
 
   private anzahlSponsoren:number;
   private itemToUpdate;
@@ -130,5 +131,34 @@ export class SponsorService{
     this.sponsoren$.map(list=>list.length).subscribe(length=>{console.log(length);this.anzahlSponsoren = length;});
 
     return this.anzahlSponsoren;
+  }
+
+  /*
+   Gibt aus, wo ein User Artikel abholen muss
+   @user: der Aktuelle Benutzer
+   */
+  getAbhollisteOfCurrentUser(user) {
+    this.abholen$ = this.af.database.list("/Abholen", {
+      query: {
+        orderByChild: 'verantwortlich',
+        equalTo: user
+      }
+    });
+
+    return this.abholen$;
+  }
+
+  /*
+   Gibt aus, welche Aufgaben ein Benutzer offen hat
+   @user: der aktuelle Benutzer
+   */
+  getTaskOfCurrentUser(user) {
+    this.task$ = this.af.database.list("/Task", {
+      query: {
+        orderByChild: 'taskUser',
+        equalTo: user
+      }
+    });
+    return this.task$;
   }
 }

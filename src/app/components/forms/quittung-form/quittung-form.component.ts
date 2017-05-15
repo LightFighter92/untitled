@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import * as firebase from "firebase";
 
 
 @Component({
@@ -9,5 +10,8 @@ import {Component} from "@angular/core";
 
 
 export class QuittungFormComponent {
+
+  storage = firebase.storage();
+  storageRef = this.storage.ref();
 
 }
