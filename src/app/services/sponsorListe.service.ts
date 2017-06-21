@@ -1,6 +1,6 @@
 import {Sponsor} from "../models/sponsor.model";
 import {Injectable} from "@angular/core";
-import {FirebaseListObservable, AngularFire} from "angularfire2";
+import {AngularFire, FirebaseListObservable} from "angularfire2";
 
 /**
  * Created by dch61 on 02.02.2017.
@@ -150,7 +150,7 @@ export class SponsorService{
 
   /*
    Gibt aus, welche Aufgaben ein Benutzer offen hat
-   @user: der aktuelle Benutzer
+   @user: der aktuelle Benutzerng
    */
   getTaskOfCurrentUser(user) {
     this.task$ = this.af.database.list("/Task", {

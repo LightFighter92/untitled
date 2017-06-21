@@ -15,6 +15,7 @@
     <div class="col-md-4">
       <label>Sponsor</label>
       <select formControlName="sponsor" class="form-control">
+        <option>gekauft</option>
         <option *ngFor="let item of sponsoren|async">{{item.name}}</option>
       </select>
     </div>

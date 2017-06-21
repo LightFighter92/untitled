@@ -16,7 +16,7 @@ export class InventarService{
   constructor(private af:AngularFire){
     this.inventar = af.database.list('/Inventar');
 
-    this.gesamtwert = this.calcGesamtwertArtikel()
+    this.gesamtwert = 500;
 
   }
   //gibt die Objekte zurück, welche in der Inventardatenbank gespeichert werden
@@ -65,19 +65,16 @@ export class InventarService{
   }
 
   //Berechnet den Gesamtwert aller Artikel
+
   calcGesamtwertArtikel(){
 
-    let total: number = 0;
+    /*let total: number = 0;
 
-    this.af.database.list("/Inventar").map(items => items.reduce((acc, item) => acc + item.wert*item.anzahl, 0))
-    // Log the total
-      .subscribe(total => {console.log(total)});
+     for (let item of this.inventar.toArray){
+     total = total + item.
+     }*/
 
-    return total;
 
-    /*
-    * ToDo: über alle Artikel im Inventar iterieren und einem ersten Schritt den Wert des Arikels mit dessen Anzahl multiplizieren.
-    * ToDo: In einem zweiten Schritt die erhaltenen Produkte miteinander Addieren
-    * */
+    return this.gesamtwert;
   }
 }

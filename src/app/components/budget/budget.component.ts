@@ -53,7 +53,7 @@ export class BudgetComponent implements OnInit {
     this.budget = this.budgetService.getItems();
     this.einnahmen = this.budgetService.einnahmen;
     this.ausgaben = this.budgetService.ausgaben;
-    this.prozentBudget = this.ausgaben / (2500 + this.einnahmen / 100);
+    this.prozentBudget = this.ausgaben / (this.einnahmen / 100);
   }
 
 }

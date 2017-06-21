@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'app-dokumente',
@@ -9,8 +9,9 @@ export class DokumenteComponent implements OnInit {
 
   //Liste der vorhanden Dokumente
   docs=[
-    {name:"Ideen,ToDo und Notizen",src:"ToDo.docx",type:"Word"}
-  ]
+    {name: "Ideen,ToDo und Notizen", src: "ToDo.docx", type: "Word"},
+    {name: "Migration", src: "Migration der Tombolasoftware.docx", type: "Word"}
+  ];
 
   constructor() { }
 

@@ -4,18 +4,29 @@
     <h3>Profil von {{user.username}} </h3>
 
     <h3>Aufgaben</h3>
-    <div *ngFor="let item of abholen">
-      <div class="row" *ngIf="item.verantwortlich === user.username">
-        <div class="col-md-3">{{item.name}}</div>
-        <div class="col-md-3">{{item.strasse}}</div>
-        <div class="col-md-2">{{item.plz}}</div>
-        <div class="col-md-3">{{item.ort}}</div>
-        <div class="col-md-1"><span class="glyphicon glyphicon-info-sign"></span></div>
+    <div *ngFor="let item of tasks">
+      <div class="row">
+        <div class="col-md-6">{{item.taskName}}</div>
+        <div class="col-md-6">{{item.taskUser}}</div>
       </div>
     </div>
-    <p>Ihnen sind zur Zeit keine Aufgaben zugeteilt</p>
     <h3>Abholen</h3>
-    <p>Keine Abholung für Sie Offen</p>
+    <table class="table">
+      <tr>
+        <th>Sponsor</th>
+        <th>Adresse</th>
+        <th>PLZ</th>
+        <th>Ort</th>
+        <th>Regional</th>
+      </tr>
+      <tr *ngFor="let data of abholen">
+        <td>{{data.sponsor}}</td>
+        <td>{{data.strasse}}</td>
+        <td>{{data.plz}}</td>
+        <td>{{data.ort}}</td>
+        <td><span class="glyphicon glyphicon-info-sign"></span></td>
+      </tr>
+    </table>
   </div>
 </div>
 <h4 *ngIf="!(af.auth|async)">Sie sind nicht eingeloggt, bitte klicken Sie auf den Login-Button um sich einzuloggen.

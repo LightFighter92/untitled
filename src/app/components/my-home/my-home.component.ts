@@ -31,7 +31,6 @@ export class MyHomeComponent {
       this.abholen = sponsorenservice.getAbhollisteOfCurrentUser(firebase.auth().currentUser.email);
       this.tasks = sponsorenservice.getTaskOfCurrentUser(firebase.auth().currentUser.email);
 
-
     }
 
   }
