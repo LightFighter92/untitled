@@ -1,7 +1,7 @@
 //Liberies
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {FormsModule, ReactiveFormsModule, FormBuilder} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
 import {AngularFireModule} from "angularfire2";
 import {BootstrapModalModule} from "ng2-bootstrap-modal";
@@ -32,6 +32,9 @@ import {RegisterComponent} from "./components/register/register.component";
 import {FilterPipe} from "./pipes/filter.pipe";
 import {LoginComponent} from "./components/login/login.component";
 import {TaskComponent} from "./components/task/task.component";
+import {ImportCSVComponent} from "./components/migTool/import-csv/import-csv.component";
+import {ExportXmlComponent} from "./components/migTool/export-xml/export-xml.component";
+import {StatusComponent} from "./components/status/status.component";
 
 
 @NgModule({
@@ -54,7 +57,10 @@ import {TaskComponent} from "./components/task/task.component";
     FilterPipe,
     O2UploadToFbsComponent,
     LoginComponent,
-    TaskComponent
+    TaskComponent,
+    ImportCSVComponent,
+    ExportXmlComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
